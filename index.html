@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD Seguro</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        input { display: block; margin: 5px 0; padding: 5px; width: 100%; }
+        button { padding: 8px; margin-top: 5px; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        td, th { border: 1px solid #ddd; padding: 8px; }
+    </style>
+</head>
+<body>
+    <h1>Gestión de Usuarios</h1>
+    
+    <div style="background: #eee; padding: 15px;">
+        <h3 id="formTitle">Nuevo Usuario</h3>
+        <input type="text" id="name" placeholder="Nombre">
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Contraseña">
+        
+        <button onclick="guardarUsuario()" id="btnSubmit">Guardar Usuario</button>
+    </div>
+    
+    <table border="1">
+        <thead><tr><th>Nombre</th><th>Email</th><th>Acciones</th></tr></thead>
+        <tbody id="userTable"></tbody>
+    </table>
+    
+    <script src="app.js"></script>
+</body>
+</html>
