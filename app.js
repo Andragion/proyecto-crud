@@ -30,3 +30,21 @@ async function cargar() {
     });
 }
 
+async function guardarUsuario() { 
+    const name = document.getElementById('name').value; 
+    const email = document.getElementById('email').value; 
+    const password = document.getElementById('password').value;
+
+    await fetch(API, { 
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'}, 
+        body: JSON.stringify({name, email, password}) 
+    }); 
+    cargar(); 
+    
+    // Limpiar campos 
+    document.getElementById('name').value = ''; 
+    document.getElementById('email').value = ''; 
+    document.getElementById('password').value = ''; 
+}
+
