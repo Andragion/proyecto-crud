@@ -23,7 +23,11 @@ async function cargar() {
 
         // 3. Columna Acciones
         const cAcciones = document.createElement('td');
-        cAcciones.textContent = "Pendiente...";
+        const btnEliminar = document.createElement('button'); 
+        btnEliminar.textContent = "Eliminar"; 
+        btnEliminar.style.color = "red";
+        btnEliminar.onclick = () => borrar(user.id); // Llamar función borrar
+        cAcciones.appendChild(btnEliminar); // Agregamos el botón a la celda
         fila.appendChild(cAcciones);
 
         tabla.appendChild(fila);
@@ -48,3 +52,9 @@ async function guardarUsuario() {
     document.getElementById('password').value = ''; 
 }
 
+async function borrar(id) { 
+    if(confirm('¿Seguro?')) { 
+        await fetch(`${API}/${id}`, { method: 'DELETE' }); 
+        cargar(); 
+    } 
+}

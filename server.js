@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs');
+
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
@@ -22,12 +24,31 @@ app.get('/users', (req, res) => {
 });
 
 // 2. CREAR (POST) - Versión 1 (Aún sin hash, lo vemos el Lunes)
-app.post('/users', (req, res) => {
-    const { name, email, password } = req.body;
-    db.query('INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
-    [name, email, password], (err, result) => {
-        res.json({ message: 'Creado' });
-    });
+app.post('/users', async (req, res) => { 
+    const { name, email, password } = req.body; 
+    // La magia de seguridad: 
+    const passSegura = await bcrypt.hash(password, 10); 
+    
+    db.query('INSERT INTO users (name, email, password) VALUES (?, ?, ?)', 
+    [name, email, passSegura], (err, result) => { 
+        res.json({ message: 'Creado Seguro' }); 
+    }); 
+});
+
+// ELIMINAR (DELETE) 
+app.delete('/users/:id', (req, res) => { 
+    const { id } = req.params; 
+    db.query('DELETE FROM users WHERE id = ?', [id], () => { 
+        res.json({ message: 'Borrado' }); 
+    }); 
 });
 
 app.listen(3000, () => console.log('🚀 Server en puerto 3000'));
+
+app.put('/users/:id', (req, res) => { 
+    const { name, email } = req.body; 
+    db.query('UPDATE users SET name = ?, email = ? WHERE id = ?', 
+    [name, email, req.params.id], () => { 
+        res.json({ ok: true }); 
+    }); 
+});
