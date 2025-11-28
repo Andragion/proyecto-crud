@@ -59,23 +59,12 @@ async function guardarUsuario() {
             body: JSON.stringify({name, email, password}) 
         }); 
     } 
+    
+    // Las siguientes tres líneas manejan la limpieza y recarga después de la operación.
     limpiar(); 
     cargar(); 
-}
-
-        await fetch(API, { 
-            method: 'POST', 
-            headers: {'Content-Type': 'application/json'}, 
-            body: JSON.stringify({name, email, password}) 
-        });
-    {
-    cargar(); 
-    
-    // Limpiar campos 
-    document.getElementById('name').value = ''; 
-    document.getElementById('email').value = ''; 
-    document.getElementById('password').value = ''; 
-}
+} 
+// El código problemático fue eliminado de aquí.
 
 async function borrar(id) { 
     if(confirm('¿Seguro?')) { 
